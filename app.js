@@ -14,12 +14,23 @@ const express = require("express");
 // create an instance of express server and store into a variable
 const server = express();
 
+// a middleware is a function that has access to the request and response object. It can modify the request and response object.
+// custom middleware
+server.use(function (req, res, next) {
+  //custom manipulation to the request and response object/data
+  console.log("I am a custom middleware function!");
+  // pass control to the next middleware function
+  next();
+});
+
+// In express you can think of the callback function as a middleware function
 server.get("/", function (req, res) {
   res.send("Hello World");
 });
 
 server.get("/api/courses", function (req, res) {
   res.send([1, 2, 3, 4, 5]);
+  console.log("I am the courses endpoint!");
 });
 server.listen(5000);
 console.log("console     log is running on port 5000");
